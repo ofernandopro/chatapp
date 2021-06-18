@@ -295,6 +295,9 @@ PODS:
   - FirebaseStorage (8.0.0):
     - FirebaseCore (~> 8.0)
     - GTMSessionFetcher/Core (~> 1.5)
+  - FirebaseUI/Storage (10.0.2):
+    - Firebase/Storage
+    - SDWebImage (~> 5.6)
   - GoogleAppMeasurement (8.0.0):
     - GoogleAppMeasurement/AdIdSupport (= 8.0.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
@@ -363,12 +366,16 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - PromisesObjC (1.2.12)
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
 
 DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Firestore
   - Firebase/Storage
+  - FirebaseUI/Storage
 
 SPEC REPOS:
   trunk:
@@ -382,6 +389,7 @@ SPEC REPOS:
     - FirebaseFirestore
     - FirebaseInstallations
     - FirebaseStorage
+    - FirebaseUI
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
@@ -391,6 +399,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - SDWebImage
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -403,6 +412,7 @@ SPEC CHECKSUMS:
   FirebaseFirestore: 7f6576eaca9f821e864c3e917d68aa99f4e6b613
   FirebaseInstallations: c4aab1005d6547b00a7529777fe52f5d4d45165b
   FirebaseStorage: 61bcd27880fa17362f68be67d3683d04bfd7b1c7
+  FirebaseUI: 59db3d833773f985550897d54ceb811ba37fb9a5
   GoogleAppMeasurement: c6bbc9753d046b5456dd4f940057fbad2c28419e
   GoogleDataTransport: 11e3a5f2c190327df1a4a5d7e7ae3d4d5b9c9e4c
   GoogleUtilities: f8a43108b38a68eebe8b3540e1f4f2d28843ce20
@@ -412,7 +422,8 @@ SPEC CHECKSUMS:
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
 
-PODFILE CHECKSUM: 2f6f92ebbc4b0445995042a3d86659b5ec804e02
+PODFILE CHECKSUM: 1a67109315cb383e562024f05065649dd8994e23
 
 COCOAPODS: 1.10.1

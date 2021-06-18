@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class CreateUserViewController: UIViewController {
     
@@ -18,12 +19,16 @@ class CreateUserViewController: UIViewController {
     @IBOutlet weak var createAccountButtonOutlet: UIButton!
     
     var auth: Auth!
+    var firestore: Firestore!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Firebase Configuration
         auth = Auth.auth()
+        firestore = Firestore.firestore()
         
+        // Adding redius to the button corner
         createAccountButtonOutlet.layer.cornerRadius = 25
         createAccountButtonOutlet.clipsToBounds = true
     }
@@ -45,10 +50,22 @@ class CreateUserViewController: UIViewController {
                         
                         if password == confirmPassoword {
                             
-                            auth.createUser(withEmail: email, password: password) { (user, error) in
+                            auth.createUser(withEmail: email, password: password) { (resultData, error) in
                                 
                                 if error == nil {
+                                    
+                                    // Save user data on firebase firestore with name
+                                    if let userId = resultData?.user.uid {
+                                        self.firestore.collection("users")
+                                        .document(userId)
+                                        .setData([
+                                            "name": name,
+                                            "email": email
+                                        ])
+                                    }
+                                    
                                     self.performSegue(withIdentifier: "signUpSegue", sender: nil)
+                                    
                                 } else {
                                     self.displayMessage(title: "Fail!", message: "Failed to create your account. Try again!")
                                 }

@@ -15,11 +15,25 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var loginButtonOutlet: UIButton!
     var auth: Auth!
+    var handler: AuthStateDidChangeListenerHandle!
+    
+    @IBAction func signUpButton(_ sender: Any) {
+        self.performSegue(withIdentifier: "loginToSignUpSegue", sender: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         auth = Auth.auth()
+                
+        // Checks if user is logged or not (used to redirect the user to the login screen if it is not logged):
+        handler = auth.addStateDidChangeListener { (authentication, user) in
+            
+            if user != nil {
+                self.performSegue(withIdentifier: "loginSegue", sender: nil)
+            }
+            
+        }
         
         loginButtonOutlet.layer.cornerRadius = 25
         loginButtonOutlet.clipsToBounds = true
@@ -28,10 +42,6 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginButton(_ sender: Any) {
         self.logIn()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     func logIn() {
@@ -70,6 +80,11 @@ class LoginViewController: UIViewController {
         
         self.present(alert, animated: true, completion: nil)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        auth.removeStateDidChangeListener(handler)
     }
     
 }
