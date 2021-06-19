@@ -8,9 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		A6CDBE019F9F4E7FD8AE46B1 /* Pods_chatapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3AA91091C3E282CB2A696A6 /* Pods_chatapp.framework */; };
+		C4352AE6267D6FC60005F75B /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4352AE5267D6FC60005F75B /* MessagesViewController.swift */; };
 		C456D8192679698700C1C0DF /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456D8182679698700C1C0DF /* ChatsViewController.swift */; };
 		C456D81B2679699700C1C0DF /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456D81A2679699700C1C0DF /* ContactsViewController.swift */; };
 		C456D81D267969A200C1C0DF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456D81C267969A200C1C0DF /* SettingsViewController.swift */; };
+		C487A924267CF08200FCB208 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C487A923267CF08200FCB208 /* ContactTableViewCell.swift */; };
+		C487A927267D0B1300FCB208 /* ContactRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C487A926267D0B1300FCB208 /* ContactRegisterViewController.swift */; };
 		C4A3ADEB2678055D003D9D34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A3ADEA2678055D003D9D34 /* AppDelegate.swift */; };
 		C4A3ADED2678055D003D9D34 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A3ADEC2678055D003D9D34 /* SceneDelegate.swift */; };
 		C4A3ADF22678055D003D9D34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4A3ADF02678055D003D9D34 /* Main.storyboard */; };
@@ -24,9 +27,12 @@
 /* Begin PBXFileReference section */
 		3A4084F7EEFEBEBEFB95136A /* Pods-chatapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatapp.debug.xcconfig"; path = "Target Support Files/Pods-chatapp/Pods-chatapp.debug.xcconfig"; sourceTree = "<group>"; };
 		C3AA91091C3E282CB2A696A6 /* Pods_chatapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chatapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4352AE5267D6FC60005F75B /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		C456D8182679698700C1C0DF /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		C456D81A2679699700C1C0DF /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		C456D81C267969A200C1C0DF /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		C487A923267CF08200FCB208 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
+		C487A926267D0B1300FCB208 /* ContactRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRegisterViewController.swift; sourceTree = "<group>"; };
 		C4A3ADE72678055D003D9D34 /* chatapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A3ADEA2678055D003D9D34 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4A3ADEC2678055D003D9D34 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +74,23 @@
 				C456D81C267969A200C1C0DF /* SettingsViewController.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		C487A920267CF03000FCB208 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C487A923267CF08200FCB208 /* ContactTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		C487A925267D0AFA00FCB208 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				C487A926267D0B1300FCB208 /* ContactRegisterViewController.swift */,
+				C4352AE5267D6FC60005F75B /* MessagesViewController.swift */,
+			);
+			path = General;
 			sourceTree = "<group>";
 		};
 		C4A3ADDE2678055C003D9D34 = {
@@ -121,6 +144,8 @@
 		C4A3AE0226780939003D9D34 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C487A925267D0AFA00FCB208 /* General */,
+				C487A920267CF03000FCB208 /* Cells */,
 				C456D8172679697700C1C0DF /* Core */,
 				C4A3AE0426781016003D9D34 /* Onboarding */,
 			);
@@ -270,13 +295,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4352AE6267D6FC60005F75B /* MessagesViewController.swift in Sources */,
 				C4A3AE0626781028003D9D34 /* LoginViewController.swift in Sources */,
 				C4A3ADEB2678055D003D9D34 /* AppDelegate.swift in Sources */,
 				C456D81D267969A200C1C0DF /* SettingsViewController.swift in Sources */,
 				C456D8192679698700C1C0DF /* ChatsViewController.swift in Sources */,
+				C487A924267CF08200FCB208 /* ContactTableViewCell.swift in Sources */,
 				C4A3ADED2678055D003D9D34 /* SceneDelegate.swift in Sources */,
 				C4A3AE0826781045003D9D34 /* CreateUserViewController.swift in Sources */,
 				C456D81B2679699700C1C0DF /* ContactsViewController.swift in Sources */,
+				C487A927267D0B1300FCB208 /* ContactRegisterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

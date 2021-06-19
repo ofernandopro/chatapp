@@ -26,18 +26,20 @@ class LoginViewController: UIViewController {
         
         auth = Auth.auth()
                 
-        // Checks if user is logged or not (used to redirect the user to the login screen if it is not logged):
-        handler = auth.addStateDidChangeListener { (authentication, user) in
-            
-            if user != nil {
-                self.performSegue(withIdentifier: "loginSegue", sender: nil)
-            }
-            
-        }
+        self.checkIfLogged()
         
         loginButtonOutlet.layer.cornerRadius = 25
         loginButtonOutlet.clipsToBounds = true
         
+    }
+    
+    // Check if user is logged or not (used to redirect the user to the login screen if it is not logged):
+    func checkIfLogged() {
+        handler = auth.addStateDidChangeListener { (authentication, user) in
+            if user != nil {
+                self.performSegue(withIdentifier: "loginSegue", sender: nil)
+            }
+        }
     }
     
     @IBAction func loginButton(_ sender: Any) {

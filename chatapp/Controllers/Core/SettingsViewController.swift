@@ -14,7 +14,6 @@ import FirebaseUI
 
 class SettingsViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
@@ -45,11 +44,9 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         storage = Storage.storage()
         firestore = Firestore.firestore()
         
-        // Retrieve logged user id
-        retrieveLoggedUserId()
+        self.retrieveLoggedUserId()
         
-        // Retrieve user data:
-        retrieveUserData()
+        self.retrieveUserData()
         
     }
     
@@ -136,17 +133,11 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
                             }
                             
                         } else {
-                            
                             self.displayMessage(title: "Error", message: "Error updating your profile picture")
-                            
                         }
-                        
                 }
-                
             }
-            
         }
-        
     }
     
     func displayMessage(title: String, message: String) {

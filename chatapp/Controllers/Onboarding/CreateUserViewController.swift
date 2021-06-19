@@ -60,7 +60,8 @@ class CreateUserViewController: UIViewController {
                                         .document(userId)
                                         .setData([
                                             "name": name,
-                                            "email": email
+                                            "email": email,
+                                            "id": userId
                                         ])
                                     }
                                     
