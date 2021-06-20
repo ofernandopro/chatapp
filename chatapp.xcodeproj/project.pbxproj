@@ -22,6 +22,7 @@
 		C4A3ADFF267805C4003D9D34 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4A3ADFE267805C4003D9D34 /* GoogleService-Info.plist */; };
 		C4A3AE0626781028003D9D34 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A3AE0526781028003D9D34 /* LoginViewController.swift */; };
 		C4A3AE0826781045003D9D34 /* CreateUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A3AE0726781045003D9D34 /* CreateUserViewController.swift */; };
+		C4EBDD30267E7E5A00667A2C /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EBDD2F267E7E5A00667A2C /* MessagesTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		C4A3ADFE267805C4003D9D34 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C4A3AE0526781028003D9D34 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C4A3AE0726781045003D9D34 /* CreateUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserViewController.swift; sourceTree = "<group>"; };
+		C4EBDD2F267E7E5A00667A2C /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
 		D0450D4341849AE83D5A54C2 /* Pods-chatapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatapp.release.xcconfig"; path = "Target Support Files/Pods-chatapp/Pods-chatapp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				C487A923267CF08200FCB208 /* ContactTableViewCell.swift */,
+				C4EBDD2F267E7E5A00667A2C /* MessagesTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4352AE6267D6FC60005F75B /* MessagesViewController.swift in Sources */,
+				C4EBDD30267E7E5A00667A2C /* MessagesTableViewCell.swift in Sources */,
 				C4A3AE0626781028003D9D34 /* LoginViewController.swift in Sources */,
 				C4A3ADEB2678055D003D9D34 /* AppDelegate.swift in Sources */,
 				C456D81D267969A200C1C0DF /* SettingsViewController.swift in Sources */,
