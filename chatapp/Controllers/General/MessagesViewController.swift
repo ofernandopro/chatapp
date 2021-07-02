@@ -14,7 +14,6 @@ import FirebaseStorage
 class MessagesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var message: UITextField!
     
     var listMessages: [Dictionary<String, Any>]! = []
@@ -22,10 +21,15 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
     var contact: Dictionary<String, Any>!
     var messagesListener: ListenerRegistration!
     var imagePicker = UIImagePickerController()
+    var nameContact: String!
+    var contactPhotoURL: String!
     
     var auth: Auth!
     var db: Firestore!
     var storage: Storage!
+    
+    var nameLoggedUser: String!
+    var urlLoggedUserPhoto: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,18 +43,44 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
         // Retrieve logged user id
         if let id = auth.currentUser?.uid {
             self.idLoggedUser = id
+            getUserLoggedData()
         }
         
         // Set screen title
-        if let titleScreen = contact["name"] {
-            self.title = titleScreen as? String
+        if let titleScreen = contact["name"] as? String {
+            nameContact = titleScreen
+            self.title = nameContact
+        }
+        
+        // Set Contact Photo
+        if let url = contact["imageURL"] as? String {
+            contactPhotoURL = url
         }
 
         tableView.backgroundView = UIImageView(image: UIImage(named: "bg"))
         tableView.separatorStyle = .none
         
-        // Set list of messages
-        //listMessages = ["Ola, tudo bem?", "Oiii, sim e voce?", "Bem tambem", "Posso te fazer uma pergunta?", "Pode sim", "Entao, é que eu queria te perguntar é se voce consegue criar um clone do whatsapp como esse?"]
+    }
+    
+    func getUserLoggedData() {
+        
+        let users = db.collection("users")
+        .document(idLoggedUser)
+        
+        users.getDocument { (documentSnapshot, error) in
+            
+            if error == nil {
+                if let data = documentSnapshot?.data() {
+                    if let url = data["imageURL"] as? String {
+                        if let name = data["name"] as? String {
+                            self.urlLoggedUserPhoto = url
+                            self.nameLoggedUser = name
+                        }
+                    }
+                }
+            }
+            
+        }
         
     }
     
@@ -100,6 +130,26 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
                                 
                                 // Save message to the recipient user
                                 self.saveMessage(idSendingUser: idRecipientUser, idRecipient: self.idLoggedUser, messageSent: messageSent as Dictionary<String, Any>)
+                                
+                                var chat: Dictionary<String, Any> = [
+                                    "lastMessage": "📸 Image..."
+                                ]
+                                
+                                // Save chat for sending user
+                                chat["idSending"] = self.idLoggedUser!
+                                chat["idRecipient"] = idRecipientUser
+                                chat["userName"] = self.nameContact
+                                chat["userPhotoURL"] = self.contactPhotoURL
+                                self.saveChat(idSending: self.idLoggedUser, idRecipient: idRecipientUser, chat: chat)
+                                
+                                // Save chat for recipient user
+                                chat["idSending"] = idRecipientUser
+                                chat["idRecipient"] = self.idLoggedUser!
+                                chat["userName"] = self.nameLoggedUser
+                                chat["userPhotoURL"] = self.urlLoggedUserPhoto
+                                self.saveChat(idSending: idRecipientUser, idRecipient: self.idLoggedUser, chat: chat)
+                                
+                                
                             }
                             
                         }
@@ -135,9 +185,38 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
                     
                     // Save message to the recipient user
                     saveMessage(idSendingUser: idRecipientUser, idRecipient: idLoggedUser, messageSent: messageSent as Dictionary<String, Any>)
+                    
+                    var chat: Dictionary<String, Any> = [
+                        "lastMessage": typedText
+                    ]
+                    
+                    // Save chat for sending user
+                    chat["idSending"] = idLoggedUser!
+                    chat["idRecipient"] = idRecipientUser
+                    chat["userName"] = self.nameContact
+                    chat["userPhotoURL"] = self.contactPhotoURL
+                    saveChat(idSending: idLoggedUser, idRecipient: idRecipientUser, chat: chat)
+                    
+                    // Save chat for recipient user
+                    chat["idSending"] = idRecipientUser
+                    chat["idRecipient"] = idLoggedUser!
+                    chat["userName"] = self.nameLoggedUser
+                    chat["userPhotoURL"] = self.urlLoggedUserPhoto
+                    saveChat(idSending: idRecipientUser, idRecipient: idLoggedUser, chat: chat)
+                    
                 }
             }
         }
+        
+    }
+    
+    func saveChat(idSending: String, idRecipient: String, chat: Dictionary<String, Any>) {
+        
+        db.collection("chats")
+        .document(idSending)
+        .collection("last_chat")
+        .document(idRecipient)
+        .setData(chat)
         
     }
     
@@ -178,6 +257,7 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
                             self.listMessages.append(data)
                         }
                         self.tableView.reloadData()
+                        self.scrollToBottom()
                     }
                     
             }
@@ -205,20 +285,41 @@ class MessagesViewController: UIViewController, UITableViewDelegate, UITableView
         
         let leftCell = tableView.dequeueReusableCell(withIdentifier: "messageCellLeft", for: indexPath) as! MessagesTableViewCell
         
+        let rightImageCell = tableView.dequeueReusableCell(withIdentifier: "imageCellRight", for: indexPath) as! MessagesTableViewCell
+        
+        let leftImageCell = tableView.dequeueReusableCell(withIdentifier: "imageCellLeft", for: indexPath) as! MessagesTableViewCell
+         
         let index = indexPath.row
         let data = self.listMessages[index]
         let text = data["text"] as? String
         let userId = data["userId"] as? String
-        
+        let URLimage = data["imageURL"] as? String
         
         if idLoggedUser == userId {
+            
+            if URLimage != nil {
+                rightImageCell.imageRight.sd_setImage(with: URL(string: URLimage!), completed: nil)
+                return rightImageCell
+            }
             rightCell.rightMessageLabel.text = text
             return rightCell
+        
         } else {
+            if URLimage != nil {
+                leftImageCell.imageLeft.sd_setImage(with: URL(string: URLimage!), completed: nil)
+                return leftImageCell
+            }
             leftCell.leftMessageLabel.text = text
             return leftCell
         }
                 
+    }
+    
+    func scrollToBottom(){
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: self.listMessages.count-1, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        }
     }
     
     func displayMessage(title: String, message: String) {
